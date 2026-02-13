@@ -28,7 +28,6 @@ body{
     overflow:hidden;
 }
 
-/* ===================== INTRO ===================== */
 #intro{
     position:absolute;
     width:100%;
@@ -93,7 +92,6 @@ body{
 
 @keyframes blink{ 0%,100%{opacity:1;} 50%{opacity:0.3;} }
 
-/* ===================== LOADING ===================== */
 #loading{
     display:none;
     position:absolute;
@@ -129,7 +127,6 @@ body{
     from{width:0%;} to{width:100%;}
 }
 
-/* ===================== PREGUNTA ===================== */
 #main{
     display:none;
     position:absolute;
@@ -191,7 +188,6 @@ button:active{
     color:white;
 }
 
-/* ===================== FINAL ===================== */
 #success{
     display:none;
     position:absolute;
@@ -228,17 +224,15 @@ button:active{
     100%{ transform:scale(1) rotate(2deg); filter:brightness(1); }
 }
 
-/* ===================== TEXTO "Santi" PEQUEÑO ESQUINA ===================== */
 #de-santi {
     font-family: 'ValentineDelight', cursive;
-    font-size: 14px; /* más pequeño */
-    color: #333; /* gris oscuro */
+    font-size: 14px; 
+    color: #333; 
     position: absolute;
     bottom: 8px;
     right: 10px;
 }
-
-/* ===================== CORAZONES PIXELADOS ===================== */
+    
 .pixel-heart {
     position: absolute;
     width: 30px;
@@ -285,8 +279,8 @@ button:active{
         <h2>Sabía que dirías que sí 💖</h2>
         <p>Me encanta compartir contigo, eres la mejor 💖<br>¡Te quiero infinitamente! 😍</p>
         <img src="san-valentin.png" alt="San Valentin">
-        <!-- Texto Santi en esquina -->
         <div id="de-santi">Santi</div>
+        <audio id="bg-music" src="cancion.mp3" loop></audio>
     </div>
 </div>
 
@@ -298,7 +292,6 @@ const yesBtn = document.getElementById("yes");
 const noBtn = document.getElementById("no");
 const success = document.getElementById("success");
 
-/* Estrellas */
 for(let i=0;i<60;i++){
     const star = document.createElement("div");
     star.classList.add("star");
@@ -308,24 +301,24 @@ for(let i=0;i<60;i++){
     intro.appendChild(star);
 }
 
-/* Intro click */
 intro.addEventListener("click", () => {
     intro.style.display="none";
     loading.style.display="flex";
     setTimeout(()=>{ loading.style.display="none"; main.style.display="flex"; },2000);
 });
 
-/* Click en SÍ con cortina de corazones */
 yesBtn.addEventListener("click", () => {
     main.style.display = "none";
     success.style.display = "flex";
-    // Crear muchos corazones
+
+    const music = document.getElementById("bg-music");
+    music.play();
+
     for(let i=0;i<100;i++){
         createPixelHeart(i);
     }
 });
 
-/* Función para crear corazones con posiciones y tiempos aleatorios */
 function createPixelHeart(i){
     const heart = document.createElement("img");
     heart.src="corazonpixel.png";
@@ -334,13 +327,12 @@ function createPixelHeart(i){
     heart.style.width = 30 + Math.random()*20 + "px";
     heart.style.height = heart.style.width;
     heart.style.animationDuration = (3 + Math.random()*2) + "s";
-    heart.style.animationDelay = (i * 0.03) + "s"; // escalonados
+    heart.style.animationDelay = (i * 0.03) + "s"; 
     heart.style.filter = `hue-rotate(${Math.random()*360}deg)`;
     document.body.appendChild(heart);
     setTimeout(()=>heart.remove(), 4000);
 }
 
-/* Botón NO esquivo */
 document.addEventListener("mousemove",(e)=>{
     if(main.style.display !== "flex") return;
     const rect=noBtn.getBoundingClientRect();
